@@ -59,10 +59,12 @@ public class ClientService {
 
 	@Transactional()
 	public void delete(Long id) {
-		try {
+		try {System.out.println("DELETAR");
 			clientRepository.deleteById(id);
+			System.out.println("DELETADO");
 		} 
 		catch (EmptyResultDataAccessException e) {
+			System.out.println("EmptyResultDataAccessException");
 			throw new ResourceNotFoundException("Recurso não encontrado");
 		}
 		catch (DataIntegrityViolationException de) {
