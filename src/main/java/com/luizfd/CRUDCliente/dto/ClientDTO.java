@@ -4,12 +4,17 @@ import java.time.LocalDate;
 
 import com.luizfd.CRUDCliente.entities.Client;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
+
 public class ClientDTO {
 	
 	private Long id;
+	@NotBlank(message = "Campo requerido")
 	private String name;
 	private String cpf;
 	private Double income;
+	@PastOrPresent(message = "A data de nascimento precisa estar no passado")
 	private LocalDate birthDate;
 	private Integer children;
 	
