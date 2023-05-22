@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.luizfd.CRUDCliente.dto.ClientDTO;
 import com.luizfd.CRUDCliente.entities.Client;
 import com.luizfd.CRUDCliente.repositories.ClientRepository;
+import com.luizfd.CRUDCliente.services.exceptions.DataBaseException;
 import com.luizfd.CRUDCliente.services.exceptions.ResourceNotFoundException;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -58,17 +59,15 @@ public class ClientService {
 	}
 
 	@Transactional()
-	public void delete(Long id) {
-		try {System.out.println("DELETAR");
-			clientRepository.deleteById(id);
-			System.out.println("DELETADO");
-		} 
-		catch (EmptyResultDataAccessException e) {
-			System.out.println("EmptyResultDataAccessException");
+	public void delete(Long id) {		
+		if (!clientRepository.existsById(id)) {
 			throw new ResourceNotFoundException("Recurso não encontrado");
 		}
+		try {
+			clientRepository.deleteById(id);
+		} 
 		catch (DataIntegrityViolationException de) {
-			throw new DataIntegrityViolationException("Falha de integridade referencial");
+			throw new DataBaseException("Falha de integridade referencial");
 		}	
 	}
 
