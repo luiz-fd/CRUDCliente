@@ -17,6 +17,5 @@ A aplicação consiste na implementação de Web Services REST que realizem as a
 ## Back end
 - Java
 - Spring Boot
-- JPA
 - Maven
 - H2
